@@ -1,5 +1,5 @@
 export type AuthForm = {
-  email: string
+  identifier: string
   password: string
 }
 export type EditedTask = {
