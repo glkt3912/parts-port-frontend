@@ -25,39 +25,43 @@ model Category {
 }
 
 model Cooler {
-  id         Int         @id @default(autoincrement())
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime
-  name       String
-  brand      String
-  intel      String
-  amd        String
-  flowtype   String
-  noise      String
-  partNumber String
-  image      String?
-  url        String?     @db.VarChar(2048)
-  price      String?
-  categoryId Int
-  Category   Category    @relation(fields: [categoryId], references: [id])
-  PartsList  PartsList[]
+  id           Int         @id @default(autoincrement())
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime
+  name         String
+  brand        String
+  image        String?
+  url          String?     @db.VarChar(2048)
+  price        String?
+  categoryId   Int
+  airFlow      String
+  coolingType  String
+  fanCount     Int
+  size         String
+  socket       String
+  supportedTdp Int
+  Category     Category    @relation(fields: [categoryId], references: [id])
+  PartsList    PartsList[]
 }
 
 model Cpu {
-  id         Int         @id @default(autoincrement())
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime
-  name       String
-  brand      String
-  processor  String
-  socket     String
-  image      String?
-  categoryId Int
-  price      String?
-  url        String?     @db.VarChar(2048)
-  partNumber String
-  Category   Category    @relation(fields: [categoryId], references: [id])
-  PartsList  PartsList[]
+  id               Int         @id @default(autoincrement())
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime
+  name             String
+  brand            String
+  processor        String
+  socket           String
+  image            String?
+  categoryId       Int
+  price            String?
+  url              String?     @db.VarChar(2048)
+  baseFrequency    String
+  boostedFrequency String
+  core             Int
+  wattage          Int
+  Category         Category    @relation(fields: [categoryId], references: [id])
+  PartsList        PartsList[]
 }
 
 model Display {
@@ -67,8 +71,7 @@ model Display {
   name       String
   brand      String
   size       String
-  area       String
-  contrast   String
+  contrast   String?
   image      String?
   categoryId Int
   price      String?
@@ -76,29 +79,30 @@ model Display {
   speed      String
   type       String
   url        String?     @db.VarChar(2048)
-  partNumber String
   Category   Category    @relation(fields: [categoryId], references: [id])
   PartsList  PartsList[]
 }
 
 model Gpu {
-  id         Int         @id @default(autoincrement())
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime
-  name       String
-  brand      String
-  chip       String
-  core       String
-  memory     String
-  clock      String
-  interface  String
-  image      String?
-  url        String?     @db.VarChar(2048)
-  price      String?
-  categoryId Int
-  partNumber String
-  Category   Category    @relation(fields: [categoryId], references: [id])
-  PartsList  PartsList[]
+  id              Int         @id @default(autoincrement())
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime
+  name            String
+  brand           String
+  chip            String
+  core            String
+  memory          String
+  interface       String
+  image           String?
+  url             String?     @db.VarChar(2048)
+  price           String?
+  categoryId      Int
+  baseFrequency   String
+  length          String
+  memoryFrequency String
+  wattage         Int
+  Category        Category    @relation(fields: [categoryId], references: [id])
+  PartsList       PartsList[]
 }
 
 model Hdd {
@@ -107,16 +111,14 @@ model Hdd {
   updatedAt  DateTime
   name       String
   brand      String
-  series     String
   capacity   String
   speed      String
-  cache      String
   image      String?
   categoryId Int
   price      String?
   url        String?     @db.VarChar(2048)
   interface  String
-  partNumber String
+  size       String
   Category   Category    @relation(fields: [categoryId], references: [id])
   PartsList  PartsList[]
 }
@@ -127,35 +129,36 @@ model Memory {
   updatedAt  DateTime
   name       String
   brand      String
-  capacity   String
-  setnumber  String
-  standard   String
   interface  String
   image      String?
   categoryId Int
   url        String?     @db.VarChar(2048)
-  partNumber String
   price      String?
+  type       String
+  frequency  String
   Category   Category    @relation(fields: [categoryId], references: [id])
   PartsList  PartsList[]
 }
 
 model MotherBoard {
-  id         Int         @id @default(autoincrement())
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime
-  name       String
-  brand      String
-  chipset    String
-  formfactor String
-  socket     String
-  image      String?
-  categoryId Int
-  price      String?
-  url        String?     @db.VarChar(2048)
-  partNumber String
-  Category   Category    @relation(fields: [categoryId], references: [id])
-  PartsList  PartsList[]
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime
+  name        String
+  brand       String
+  socket      String
+  image       String?
+  categoryId  Int
+  price       String?
+  url         String?     @db.VarChar(2048)
+  formFactor  String
+  memoryType  String
+  pciSlots    String?
+  chip        String
+  maxMemory   Int
+  memorySlots Int
+  Category    Category    @relation(fields: [categoryId], references: [id])
+  PartsList   PartsList[]
 }
 
 model PartsList {
@@ -195,14 +198,13 @@ model PcCase {
   updatedAt  DateTime
   name       String
   brand      String
-  factor     String
   weight     String
   image      String?
   categoryId Int
   price      String?
   url        String?     @db.VarChar(2048)
-  partNumber String
   size       String
+  formFactor String
   PartsList  PartsList[]
   Category   Category    @relation(fields: [categoryId], references: [id])
 }
@@ -213,14 +215,13 @@ model Power {
   updatedAt     DateTime
   name          String
   brand         String
-  standard      String
   capacity      String
   image         String?
   categoryId    Int
   price         String?
   url           String?     @db.VarChar(2048)
-  partNumber    String
   certification String
+  type          String
   PartsList     PartsList[]
   Category      Category    @relation(fields: [categoryId], references: [id])
 }
@@ -234,12 +235,11 @@ model Ssd {
   capacity   String
   size       String
   interface  String
-  ssdtype    String
   image      String?
   categoryId Int
   price      String?
   url        String?     @db.VarChar(2048)
-  partNumber String
+  speed      String
   PartsList  PartsList[]
   Category   Category    @relation(fields: [categoryId], references: [id])
 }
