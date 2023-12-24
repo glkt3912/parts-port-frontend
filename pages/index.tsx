@@ -17,6 +17,7 @@ import {
   PasswordInput,
   Alert,
 } from '@mantine/core'
+import { Header } from '../components/Header'
 
 // const schema = Yup.object().shape({
 //   name: Yup.string().required('No Name provided'),
@@ -82,81 +83,84 @@ const Home: NextPage = () => {
     }
   }
   return (
-    <Layout title="Auth">
-      <ShieldCheckIcon className="h-16 w-16 text-blue-500" />
-      {error && (
-        <Alert
-          my="md"
-          variant="filled"
-          icon={<ExclamationCircleIcon />}
-          title="Authorization Error"
-          color="red"
-          radius="md"
-        >
-          {error}
-        </Alert>
-      )}
-      <form onSubmit={form.onSubmit(handleSubmit)}>
-        {isRegister && (
-          <>
-            <TextInput
-              mt="md"
-              id="name"
-              label="Name*"
-              placeholder="UserName"
-              {...form.getInputProps('name')}
-            />
-            <TextInput
-              mt="md"
-              id="email"
-              label="Email*"
-              placeholder="example@gmail.com"
-              {...form.getInputProps('email')}
-            />
-          </>
+    <>
+      <Header />
+      <Layout title="Auth">
+        <ShieldCheckIcon className="h-16 w-16 text-blue-500" />
+        {error && (
+          <Alert
+            my="md"
+            variant="filled"
+            icon={<ExclamationCircleIcon />}
+            title="Authorization Error"
+            color="red"
+            radius="md"
+          >
+            {error}
+          </Alert>
         )}
-        {!isRegister && (
-          <TextInput
+        <form onSubmit={form.onSubmit(handleSubmit)}>
+          {isRegister && (
+            <>
+              <TextInput
+                mt="md"
+                id="name"
+                label="Name*"
+                placeholder="UserName"
+                {...form.getInputProps('name')}
+              />
+              <TextInput
+                mt="md"
+                id="email"
+                label="Email*"
+                placeholder="example@gmail.com"
+                {...form.getInputProps('email')}
+              />
+            </>
+          )}
+          {!isRegister && (
+            <TextInput
+              mt="md"
+              id="identifier"
+              label="Username or Email*"
+              placeholder="Username or example@gmail.com"
+              {...form.getInputProps('identifier')}
+            />
+          )}
+          <PasswordInput
             mt="md"
-            id="identifier"
-            label="Username or Email*"
-            placeholder="Username or example@gmail.com"
-            {...form.getInputProps('identifier')}
+            id="password"
+            placeholder="password"
+            label="Password*"
+            description="Must be min 5 char"
+            {...form.getInputProps('password')}
           />
-        )}
-        <PasswordInput
-          mt="md"
-          id="password"
-          placeholder="password"
-          label="Password*"
-          description="Must be min 5 char"
-          {...form.getInputProps('password')}
-        />
-        <Group>
-          <Anchor
-            component="button"
-            type="button"
-            size="xs"
-            className="text-gray-300"
-            onClick={() => {
-              setIsRegister(!isRegister)
-              setError('')
-            }}
-          >
-            {isRegister
-              ? 'Have an account? Login'
-              : "Don't have an account? Register"}
-          </Anchor>
-          <Button
-            leftIcon={<IconDatabase size={14} />}
-            color="cyan"
-            type="submit"
-          >
-            {isRegister ? 'Register' : 'Login'}
-          </Button>
-        </Group>
-      </form>
-    </Layout>
+          <Group>
+            <Anchor
+              component="button"
+              type="button"
+              size="xs"
+              className="text-gray-300"
+              onClick={() => {
+                setIsRegister(!isRegister)
+                setError('')
+              }}
+            >
+              {isRegister
+                ? 'Have an account? Login'
+                : "Don't have an account? Register"}
+            </Anchor>
+            <Button
+              leftIcon={<IconDatabase size={14} />}
+              color="cyan"
+              type="submit"
+            >
+              {isRegister ? 'Register' : 'Login'}
+            </Button>
+          </Group>
+        </form>
+      </Layout>
+    </>
   )
 }
 
