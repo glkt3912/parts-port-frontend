@@ -8,7 +8,7 @@ export type EditedTask = {
   description?: string | null
 }
 
-type BasePart = {
+export type BasePart = {
   id: number
   name: string
   brand: string
