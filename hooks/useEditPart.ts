@@ -8,7 +8,7 @@ type PartType = 'cooler' | 'cpu' | 'gpu' | 'motherboard' | 'memory' | 'hdd' | 's
 const useEditPart = (partType: PartType, partId: string | number) => {
     const queryKey = ['part', partType, partId]
     const queryFn = () => fetchPartDetails(partType as PartType, parseInt(partId as string))
-    const { data: part, isLoading, isError } = useQuery(queryKey, queryFn, {
+    const { data: part, isLoading, isError, error } = useQuery(queryKey, queryFn, {
         enabled: !!partType && !!partId,
     })
     const { updateEditedPart } = useStore()
@@ -19,7 +19,7 @@ const useEditPart = (partType: PartType, partId: string | number) => {
         }
     }, [part, updateEditedPart])
 
-    return { part, isLoading, isError }
+    return { part, isLoading, isError, errorMessage: (error as Error)?.message }
 }
 
 export default useEditPart

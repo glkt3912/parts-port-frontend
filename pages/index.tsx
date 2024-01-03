@@ -83,8 +83,6 @@ const Home: NextPage = () => {
     }
   }
   return (
-    <>
-      <Header />
       <Layout title="Auth">
         <ShieldCheckIcon className="h-16 w-16 text-blue-500" />
         {error && (
@@ -140,7 +138,6 @@ const Home: NextPage = () => {
               component="button"
               type="button"
               size="xs"
-              className="text-gray-300"
               onClick={() => {
                 setIsRegister(!isRegister)
                 setError('')
@@ -160,7 +157,6 @@ const Home: NextPage = () => {
           </Group>
         </form>
       </Layout>
-    </>
   )
 }
 

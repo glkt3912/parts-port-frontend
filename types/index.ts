@@ -8,6 +8,13 @@ export type EditedTask = {
   description?: string | null
 }
 
+export type Category = {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  name: string;
+};
+
 export type BasePart = {
   id: number
   name: string
@@ -32,10 +39,6 @@ export type Gpu = BasePart & {
   core: string
   memory: string
   interface: string
-  image?: string
-  url?: string
-  price?: string
-  categoryId: number
   baseFrequency: string
   length: string
   memoryFrequency: string

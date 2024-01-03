@@ -6,7 +6,7 @@ import { Layout } from '../components/Layout'
 import { UserInfo } from '../components/UserInfo'
 import { useQueryClient } from '@tanstack/react-query'
 import { TaskForm } from '../components/TaskForm'
-import { TaskList } from '../components/TaskList'
+import { PartEditForm } from '../components/PartEditForm'
 
 const Dashboard: NextPage = () => {
   const router = useRouter()
@@ -25,7 +25,6 @@ const Dashboard: NextPage = () => {
       />
       <UserInfo />
       <TaskForm />
-      <TaskList />
     </Layout>
   )
 }

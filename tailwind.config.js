@@ -8,7 +8,7 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-  corePlugins: {
+  corePlugins: { // MantineUI, Tailwind の互換性確保
     preflight: false,
   },
 }

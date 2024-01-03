@@ -28,6 +28,12 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# nodenv
+.node-version
+
+# yarn
+yarn.lock
+
 # vercel
 .vercel
 

@@ -6,6 +6,8 @@ type FormInputProps = {
     name: string;
     value: string | number;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    className?: string;
+    error?: string;
 };
 
 type Option = {
@@ -19,10 +21,12 @@ type FormSelectProps = {
     value: string | number;
     onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
     options: Option[];
+    className?: string;
+    error?: string;
 };
 
-export const FormInput = ({ label, type, name, value, onChange }: FormInputProps) => (
-    <div>
+export const FormInput = ({ label, type, name, value, onChange, className, error }: FormInputProps) => (
+    <div className={className}>
         <label htmlFor={name}>{label}:</label>
         <input
             type={type}
@@ -31,11 +35,12 @@ export const FormInput = ({ label, type, name, value, onChange }: FormInputProps
             value={value || ''}
             onChange={onChange}
         />
+        {error && <p className="error">{error}</p>}
     </div>
 );
 
-export const FormSelect = ({ label, name, value, onChange, options }: FormSelectProps) => (
-    <div>
+export const FormSelect = ({ label, name, value, onChange, options, className, error }: FormSelectProps) => (
+    <div className={className}>
         <label htmlFor={name}>{label}:</label>
         <select name={name} id={name} value={value} onChange={onChange}>
             {options.map(option => (
@@ -44,5 +49,6 @@ export const FormSelect = ({ label, name, value, onChange, options }: FormSelect
                 </option>
             ))}
         </select>
+        {error && <p className="error">{error}</p>}
     </div>
 );

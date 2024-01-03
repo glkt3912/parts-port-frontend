@@ -1,27 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { FormInput, FormSelect } from './FormComponent';
-import { BasePart } from './../../types';
-import { fetchCategories } from './../../api/fetchCategories';
+import { BasePart, Category } from './../../types';
 
 type BasePartFormProps = {
     formData: BasePart;
     handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+    categories: Category[];
 }
 
 export const BasePartForm = ({ formData, handleChange }: BasePartFormProps) => {
-    const [categories, setCategories] = useState([]);
-    useEffect(() => {
-        const loadCategories = async () => {
-            try {
-                const fetchedCategories = await fetchCategories();
-                setCategories(fetchedCategories);
-            } catch (error) {
-                console.error('Error loading categories:', error);
-            }
-        };
-
-        loadCategories();
-    }, []);
     return (
     <>
         <FormInput label="Name" type="text" name="name" value={formData.name} onChange={handleChange} />

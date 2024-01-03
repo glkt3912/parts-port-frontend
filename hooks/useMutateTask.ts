@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
 import { Task } from '@prisma/client'
-import useStore from '../store'
+import useStore from '../store/index'
 import { EditedTask } from '../types'
 
 export const useMutateTask = () => {

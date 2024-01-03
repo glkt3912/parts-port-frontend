@@ -32,12 +32,13 @@ function MyApp(props: AppProps & { colorScheme: ColorScheme }) {
   useEffect(() => {
     const getCsrfToken = async () => {
       const { data } = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/csrf`,
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/csrf`
       )
       axios.defaults.headers.common['csrf-token'] = data.csrfToken
     }
     getCsrfToken()
   }, [])
+  console.log(axios.defaults.headers);
   return (
     <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
     <QueryClientProvider client={queryClient}>
