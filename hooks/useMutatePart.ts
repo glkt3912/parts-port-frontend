@@ -1,19 +1,20 @@
-import { useRouter } from 'next/router';
 import axios from 'axios';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
+import { PartsList } from '../types';
+
 
 export const useMutatePart = () => {
   const queryClient = useQueryClient();
-  const createPart = useMutation((partData) => axios.post('/parts', partData), {
+  const createPart = useMutation((partData: PartsList) => axios.post('/partslist', partData), {
     onSuccess: () => {
-      queryClient.invalidateQueries(['parts']);
+      queryClient.invalidateQueries(['partslist']);
     },
   });
   const updatePart = useMutation(
-    (partData) => axios.put(`/parts/${partData.id}`, partData),
+    (partData: PartsList) => axios.put(`/partslist/${partData.userId}`, partData),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(['parts']);
+        queryClient.invalidateQueries(['partslist']);
       },
     },
   );

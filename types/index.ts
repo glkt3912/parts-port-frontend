@@ -15,6 +15,26 @@ export type Category = {
   name: string;
 };
 
+export type PartsList = {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  name: string;
+  userId: number;
+  cpuId?: number;
+  motherboardId?: number;
+  memoryId?: number;
+  hddId?: number;
+  ssdId?: number;
+  powerId?: number;
+  pccaseId?: number;
+  displayId?: number;
+  isOpened: boolean;
+  gpuId?: number;
+  description: string;
+  coolerId?: number;
+};
+
 export type BasePart = {
   id: number;
   name: string;
