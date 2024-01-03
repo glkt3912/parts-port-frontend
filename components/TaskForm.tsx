@@ -1,28 +1,28 @@
-import { FormEvent } from 'react'
-import { TextInput, Button, Center } from '@mantine/core'
-import { IconDatabase } from '@tabler/icons'
-import useStore from '../store/index'
-import { useMutateTask } from '../hooks/useMutateTask'
+import { FormEvent } from 'react';
+import { TextInput, Button, Center } from '@mantine/core';
+import { IconDatabase } from '@tabler/icons';
+import useStore from '../store/index';
+import { useMutateTask } from '../hooks/useMutateTask';
 
 export const TaskForm = () => {
-  const { editedTask } = useStore()
-  const update = useStore((state) => state.updateEditedTask)
-  const { createTaskMutation, updateTaskMutation } = useMutateTask()
+  const { editedTask } = useStore();
+  const update = useStore((state) => state.updateEditedTask);
+  const { createTaskMutation, updateTaskMutation } = useMutateTask();
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     if (editedTask.id === 0)
       createTaskMutation.mutate({
         title: editedTask.title,
         description: editedTask.description,
-      })
+      });
     else {
       updateTaskMutation.mutate({
         id: editedTask.id,
         title: editedTask.title,
         description: editedTask.description,
-      })
+      });
     }
-  }
+  };
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -52,5 +52,5 @@ export const TaskForm = () => {
         </Center>
       </form>
     </>
-  )
-}
+  );
+};
