@@ -7,12 +7,15 @@ import { Layout } from '../components/Layout';
 import { UserInfo } from '../components/UserInfo';
 import { useQueryClient } from '@tanstack/react-query';
 import { PartEditForm } from '../components/PartEditForm';
+import { CategoryList } from '../components/CategoryList';
+import { MyPartsList } from '../components/PartsList';
 
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const [partType, setPartType] = useState<'cpu' | 'gpu'>('cpu');
-  const [partId, setPartId] = useState<string | null>(null);
+  const [partId, setPartId] = useState<string>('');
+  const [parts, setParts] = useState<PartsList[]>([]);
   const logout = async () => {
     queryClient.removeQueries(['tasks']);
     queryClient.removeQueries(['user']);
@@ -25,6 +28,7 @@ const Dashboard: NextPage = () => {
         className="mb-6 h-6 w-6 cursor-pointer text-blue-500"
         onClick={logout}
       />
+      <CategoryList partType={partType}/>
       <UserInfo />
 
       {/* パーツタイプ選択 */}
