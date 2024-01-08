@@ -11,8 +11,8 @@ import { PartEditForm } from '../components/PartEditForm';
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const [partType, setPartType] = useState('');
-  const [partId, setPartId] = useState('');
+  const [partType, setPartType] = useState<'cpu' | 'gpu'>('cpu');
+  const [partId, setPartId] = useState<string | null>(null);
   const logout = async () => {
     queryClient.removeQueries(['tasks']);
     queryClient.removeQueries(['user']);

@@ -11,18 +11,8 @@ import {
   Cooler,
   Display,
 } from '../types/index';
+import { PartType } from '../types/index';
 
-type PartType =
-  | Cpu
-  | Gpu
-  | MotherBoard
-  | Memory
-  | Hdd
-  | Ssd
-  | Power
-  | PcCase
-  | Cooler
-  | Display;
 // storeの状態を定義
 type State = {
   editedPart: PartType | null; // 編集中のパーツ（任意のパーツタイプ）

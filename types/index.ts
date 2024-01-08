@@ -15,6 +15,18 @@ export type Category = {
   name: string;
 };
 
+export type PartType =
+| 'cpu'
+| 'gpu'
+| 'motherboard'
+| 'memory'
+| 'hdd'
+| 'ssd'
+| 'power'
+| 'pccase'
+| 'cooler'
+| 'display';
+
 export type PartsList = {
   id: number;
   createdAt: Date;

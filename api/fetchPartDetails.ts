@@ -1,16 +1,5 @@
 import axios from 'axios';
-
-type PartType =
-  | 'cpu'
-  | 'gpu'
-  | 'motherboard'
-  | 'memory'
-  | 'hdd'
-  | 'ssd'
-  | 'power'
-  | 'pccase'
-  | 'cooler'
-  | 'display';
+import { PartType } from '../types';
 
 const fetchPartDetails = async (partType: PartType, partId: number) => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;

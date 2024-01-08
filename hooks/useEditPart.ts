@@ -2,18 +2,7 @@ import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import useStore from '../store';
 import fetchPartDetails from '../api/fetchPartDetails';
-
-type PartType =
-  | 'cooler'
-  | 'cpu'
-  | 'gpu'
-  | 'motherboard'
-  | 'memory'
-  | 'hdd'
-  | 'ssd'
-  | 'power'
-  | 'pccase'
-  | 'display';
+import { PartType } from '../types';
 
 const useEditPart = (partType: PartType, partId: string | number) => {
   const queryKey = ['part', partType, partId];
