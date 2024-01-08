@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import axios from 'axios';
@@ -5,12 +6,13 @@ import { LogoutIcon } from '@heroicons/react/solid';
 import { Layout } from '../components/Layout';
 import { UserInfo } from '../components/UserInfo';
 import { useQueryClient } from '@tanstack/react-query';
-import { TaskForm } from '../components/TaskForm';
 import { PartEditForm } from '../components/PartEditForm';
 
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const [partType, setPartType] = useState('');
+  const [partId, setPartId] = useState('');
   const logout = async () => {
     queryClient.removeQueries(['tasks']);
     queryClient.removeQueries(['user']);
@@ -24,7 +26,30 @@ const Dashboard: NextPage = () => {
         onClick={logout}
       />
       <UserInfo />
-      <TaskForm />
+
+      {/* パーツタイプ選択 */}
+      <select value={partType} onChange={(e) => setPartType(e.target.value)}>
+        <option value="">Select Part Type</option>
+        <option value="cpu">CPU</option>
+        <option value="gpu">GPU</option>
+      </select>
+
+      {/* パーツID入力 */}
+      <input
+        type="text"
+        placeholder="Enter Part ID"
+        value={partId}
+        onChange={(e) => setPartId(e.target.value)}
+      />
+
+       {/* PartEditForm のレンダリング */}
+       {partType && partId && (
+        <PartEditForm
+          partType={partType}
+          partId={partId}
+          onSave={handleSave}
+        />
+      )}
     </Layout>
   );
 };
