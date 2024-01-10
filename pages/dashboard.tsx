@@ -8,7 +8,7 @@ import { UserInfo } from '../components/UserInfo';
 import { useQueryClient } from '@tanstack/react-query';
 import { PartEditForm } from '../components/PartEditForm';
 import { CategoryList } from '../components/CategoryList';
-import { MyPartsList } from '../components/PartsList';
+import { MyPartsList } from '../components/MyPartsList';
 
 const Dashboard: NextPage = () => {
   const router = useRouter();
