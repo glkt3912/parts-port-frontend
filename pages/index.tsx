@@ -9,6 +9,7 @@ import { IconDatabase } from '@tabler/icons';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
 import { ExclamationCircleIcon } from '@heroicons/react/outline';
 import { Layout } from '../components/Layout';
+import { useStore } from '../store';
 import {
   Anchor,
   TextInput,
@@ -17,15 +18,6 @@ import {
   PasswordInput,
   Alert,
 } from '@mantine/core';
-import { Header } from '../components/Header';
-
-// const schema = Yup.object().shape({
-//   name: Yup.string().required('No Name provided'),
-//   email: Yup.string().email('Invalid email').required('No email provided'),
-//   password: Yup.string()
-//     .required('No password provided')
-//     .min(5, 'Password should be min 5 chars'),
-// })
 
 const Home: NextPage = () => {
   const [isRegister, setIsRegister] = useState(false);
@@ -55,28 +47,39 @@ const Home: NextPage = () => {
   });
   const handleSubmit = async () => {
     try {
+      let response;
       const { name, email, password } = form.values;
       const identifier = form.values.identifier || '';
-
+      console.log(isRegister);
       if (isRegister) {
-        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
-          name: name,
-          email: email,
-          password: password,
-        });
+        response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
+          {
+            name: name,
+            email: email,
+            password: password,
+          },
+        );
       } else {
         const loginData = identifier.includes('@')
           ? { email: identifier, password }
           : { name: identifier, password };
-        await axios.post(
+        response = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
           loginData,
         );
       }
+      console.log(response.data);
+      // ユーザー情報をローカルストレージに保存
+      if (response.data.user) {
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+      }
+      console.log(localStorage);
 
       form.reset();
       router.push('/dashboard');
     } catch (e: any) {
+      console.log(e);
       const errorMessage =
         e.response?.data?.message || 'An unexpected error occurred.';
       setError(errorMessage);

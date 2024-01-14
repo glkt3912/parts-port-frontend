@@ -46,7 +46,7 @@ function MyApp(props: AppProps & { colorScheme: ColorScheme }) {
     };
     getCsrfToken();
   }, []);
-  console.log(axios.defaults.headers);
+  // console.log(axios.defaults.headers);
   return (
     <ColorSchemeProvider
       colorScheme={colorScheme}

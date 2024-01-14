@@ -29,7 +29,6 @@ module.exports = {
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "files": ['**/*.{js,jsx,ts,tsx}'],
     "plugins": [
         "@typescript-eslint",
         "react"

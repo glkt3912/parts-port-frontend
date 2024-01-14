@@ -9,13 +9,16 @@ import { useQueryClient } from '@tanstack/react-query';
 import { PartEditForm } from '../components/PartEditForm';
 import { CategoryList } from '../components/CategoryList';
 import { MyPartsList } from '../components/MyPartsList';
+import { User } from '../types';
+import { useQueryUser } from '../hooks/useQueryUser';
 
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const [partType, setPartType] = useState<'cpu' | 'gpu'>('cpu');
   const [partId, setPartId] = useState<string>('');
-  const [parts, setParts] = useState<PartsList[]>([]);
+  const { data: user } = useQueryUser();
+
   const logout = async () => {
     queryClient.removeQueries(['tasks']);
     queryClient.removeQueries(['user']);
@@ -24,11 +27,12 @@ const Dashboard: NextPage = () => {
   };
   return (
     <Layout title="Task Board">
+      <MyPartsList userId={user?.id} />
       <LogoutIcon
         className="mb-6 h-6 w-6 cursor-pointer text-blue-500"
         onClick={logout}
       />
-      <CategoryList partType={partType}/>
+      <CategoryList partType={partType} />
       <UserInfo />
 
       {/* パーツタイプ選択 */}
@@ -46,13 +50,9 @@ const Dashboard: NextPage = () => {
         onChange={(e) => setPartId(e.target.value)}
       />
 
-       {/* PartEditForm のレンダリング */}
-       {partType && partId && (
-        <PartEditForm
-          partType={partType}
-          partId={partId}
-          onSave={handleSave}
-        />
+      {/* PartEditForm のレンダリング */}
+      {partType && partId && (
+        <PartEditForm partType={partType} partId={partId} onSave={handleSave} />
       )}
     </Layout>
   );

@@ -8,6 +8,12 @@ export type EditedTask = {
   description?: string | null;
 };
 
+export type User = {
+  id: number;
+  email: string;
+  name: string;
+};
+
 export type Category = {
   id: number;
   createdAt: Date;
@@ -16,16 +22,16 @@ export type Category = {
 };
 
 export type PartType =
-| 'cpu'
-| 'gpu'
-| 'motherboard'
-| 'memory'
-| 'hdd'
-| 'ssd'
-| 'power'
-| 'pccase'
-| 'cooler'
-| 'display';
+  | 'cpu'
+  | 'gpu'
+  | 'motherboard'
+  | 'memory'
+  | 'hdd'
+  | 'ssd'
+  | 'power'
+  | 'pccase'
+  | 'cooler'
+  | 'display';
 
 export type PartsList = {
   id: number;
