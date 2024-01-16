@@ -33,6 +33,19 @@ export type PartType =
   | 'cooler'
   | 'display';
 
+export const partTypes: PartType[] = [
+  'cpu',
+  'gpu',
+  'motherboard',
+  'memory',
+  'hdd',
+  'ssd',
+  'power',
+  'pccase',
+  'cooler',
+  'display',
+];
+
 export type PartsList = {
   id: number;
   createdAt: Date;

@@ -9,13 +9,13 @@ import { useQueryClient } from '@tanstack/react-query';
 import { PartEditForm } from '../components/PartEditForm';
 import { CategoryList } from '../components/CategoryList';
 import { MyPartsList } from '../components/MyPartsList';
-import { User } from '../types';
+import { PartType, partTypes } from '../types';
 import { useQueryUser } from '../hooks/useQueryUser';
 
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const [partType, setPartType] = useState<'cpu' | 'gpu'>('cpu');
+  const [partType, setPartType] = useState<PartType>('cpu');
   const [partId, setPartId] = useState<string>('');
   const { data: user } = useQueryUser();
 
@@ -36,10 +36,21 @@ const Dashboard: NextPage = () => {
       <UserInfo />
 
       {/* パーツタイプ選択 */}
-      <select value={partType} onChange={(e) => setPartType(e.target.value)}>
+      <select
+        value={partType}
+        onChange={(e) => {
+          const newValue = e.target.value;
+          if (partTypes.includes(newValue as PartType)) {
+            setPartType(newValue as PartType);
+          }
+        }}
+      >
         <option value="">Select Part Type</option>
-        <option value="cpu">CPU</option>
-        <option value="gpu">GPU</option>
+        {partTypes.map((type) => (
+          <option key={type} value={type}>
+            {type.toUpperCase()}
+          </option>
+        ))}
       </select>
 
       {/* パーツID入力 */}

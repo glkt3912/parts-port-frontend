@@ -4,9 +4,10 @@ import { BasePartForm } from './form/BasePartForm';
 import { CpuForm } from './form/CpuForm';
 import { GpuForm } from './form/GpuForm';
 import { fetchCategories } from './../api/fetchCategories';
+import { PartType } from '../types';
 
 type PartEditFormProps = {
-  partType: 'cpu' | 'gpu';
+  partType: PartType;
   partId: string;
   onSave: (part: any) => void;
 };
@@ -20,7 +21,7 @@ export const PartEditForm = ({
     partType,
     partId,
   );
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState(part || {});
   const [categories, setCategories] = useState([]);
   const [isCategoriesLoading, setIsCategoriesLoading] = useState(false);
   const [categoriesError, setCategoriesError] = useState<string | null>(null);
@@ -64,7 +65,7 @@ export const PartEditForm = ({
   return (
     <form onSubmit={handleSubmit}>
       <BasePartForm
-        formData={part}
+        formData={formData}
         handleChange={handleChange}
         categories={categories}
       />
