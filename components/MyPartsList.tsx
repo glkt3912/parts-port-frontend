@@ -1,31 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { PartsList } from '../types';
-import { fetchMyParts } from '../api/fetchMyParts';
+import React from 'react';
 import { useQueryUser } from '../hooks/useQueryUser';
-
-const useParts = (userId) => {
-  const [partsList, setPartsList] = useState<PartsList[]>([]);
-
-  useEffect(() => {
-    if (!userId) return;
-    const loadParts = async () => {
-      try {
-        const fetchedParts = await fetchMyParts(userId);
-        setPartsList(
-          Array.isArray(fetchedParts) ? fetchedParts : [fetchedParts],
-        );
-      } catch (error) {
-        console.error('Failed to fetch parts:', error);
-      }
-    };
-
-    loadParts();
-  }, [userId]);
-
-  return partsList;
-};
-
-const formatDate = (dateString: Date) => new Date(dateString).toDateString();
+import { useParts, formatDate } from '../hooks/useParts';
 
 export const MyPartsList = () => {
   const { data: user, isLoading, isError } = useQueryUser();

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FormInput } from './FormComponent';
 import { Cpu } from './../../types';
 
@@ -8,6 +8,33 @@ type CpuFormProps = {
 };
 
 export const CpuForm = ({ formData, handleChange }: CpuFormProps) => {
+  const [errors, setErrors] = useState({});
+
+  const validate = (name: string, value: any) => {
+    switch (name) {
+      case 'wattage':
+        if (value < 0) {
+          setErrors({
+            ...errors,
+            wattage: 'Wattage must be a positive number',
+          });
+        } else {
+          let newErrors = { ...errors };
+          delete newErrors.wattage;
+          setErrors(newErrors);
+        }
+        break;
+      // 他のフィールドに対するバリデーションもここに追加
+      default:
+        break;
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    validate(name, value);
+    handleChange(e);
+  };
   return (
     <>
       <FormInput

@@ -50,7 +50,6 @@ const Home: NextPage = () => {
       let response;
       const { name, email, password } = form.values;
       const identifier = form.values.identifier || '';
-      console.log(isRegister);
       if (isRegister) {
         response = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
@@ -69,7 +68,6 @@ const Home: NextPage = () => {
           loginData,
         );
       }
-      console.log(response.data);
       // ユーザー情報をローカルストレージに保存
       if (response.data.user) {
         localStorage.setItem('user', JSON.stringify(response.data.user));

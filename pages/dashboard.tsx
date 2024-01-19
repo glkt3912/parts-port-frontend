@@ -11,6 +11,7 @@ import { CategoryList } from '../components/CategoryList';
 import { MyPartsList } from '../components/MyPartsList';
 import { PartType, partTypes } from '../types';
 import { useQueryUser } from '../hooks/useQueryUser';
+import PartsItemList from '../components/PartsItemList';
 
 const Dashboard: NextPage = () => {
   const router = useRouter();
@@ -27,7 +28,7 @@ const Dashboard: NextPage = () => {
   };
   return (
     <Layout title="Task Board">
-      <MyPartsList userId={user?.id} />
+      {/* <MyPartsList userId={user?.id} /> */}
       <LogoutIcon
         className="mb-6 h-6 w-6 cursor-pointer text-blue-500"
         onClick={logout}
@@ -61,10 +62,7 @@ const Dashboard: NextPage = () => {
         onChange={(e) => setPartId(e.target.value)}
       />
 
-      {/* PartEditForm のレンダリング */}
-      {partType && partId && (
-        <PartEditForm partType={partType} partId={partId} onSave={handleSave} />
-      )}
+      <PartsItemList partType={partType} />
     </Layout>
   );
 };
