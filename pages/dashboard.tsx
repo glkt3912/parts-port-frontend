@@ -12,6 +12,7 @@ import { MyPartsList } from '../components/MyPartsList';
 import { PartType, partTypes } from '../types';
 import { useQueryUser } from '../hooks/useQueryUser';
 import PartsItemList from '../components/PartsItemList';
+import { Container } from '@mantine/core';
 
 const Dashboard: NextPage = () => {
   const router = useRouter();
@@ -28,7 +29,6 @@ const Dashboard: NextPage = () => {
   };
   return (
     <Layout title="Task Board">
-      {/* <MyPartsList userId={user?.id} /> */}
       <LogoutIcon
         className="mb-6 h-6 w-6 cursor-pointer text-blue-500"
         onClick={logout}
@@ -61,8 +61,12 @@ const Dashboard: NextPage = () => {
         value={partId}
         onChange={(e) => setPartId(e.target.value)}
       />
-
-      <PartsItemList partType={partType} />
+      <Container>
+        <MyPartsList />
+      </Container>
+      <Container>
+        <PartsItemList partType={partType} />
+      </Container>
     </Layout>
   );
 };

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { PartsList, PartType } from '../types';
-import { fetchMyParts } from '../api/fetchMyParts';
+import fetchMyParts from '../api/fetchMyParts';
 
 export const useParts = (userId: number) => {
   const [partsList, setPartsList] = useState<PartsList[]>([]);
