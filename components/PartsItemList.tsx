@@ -266,7 +266,7 @@ const PartsItemList: React.FC<PartsItemListProps> = ({ partType }) => {
   ));
 
   return (
-    <Table>
+    <Table horizontalSpacing="lg" verticalSpacing="sm">
       <TableHeader partType={partType} />
       <tbody>{rows}</tbody>
     </Table>

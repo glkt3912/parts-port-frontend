@@ -1,6 +1,5 @@
 import { FC, ReactNode } from 'react';
 import Head from 'next/head';
-import { Header } from './Header';
 
 type Props = {
   title: string;
@@ -10,7 +9,6 @@ type Props = {
 export const Layout: FC<Props> = ({ children, title = 'Nextjs' }) => {
   return (
     <>
-      <Header />
       <div className="flex min-h-screen flex-col items-center justify-center">
         <Head>
           <title>{title}</title>
