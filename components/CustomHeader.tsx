@@ -1,18 +1,21 @@
 import React from 'react';
+import axios from 'axios';
 import {
   Container,
   Group,
   ActionIcon,
-  Text,
   Title,
   useMantineColorScheme,
   MantineTheme,
   Header,
   MediaQuery,
-  Burger
+  Burger,
+  Menu
 } from '@mantine/core';
-import { IconSun, IconMoon, IconSettings } from '@tabler/icons';
+import { IconSun, IconMoon, IconSettings, IconDevicesPc, IconUser, IconLogout } from '@tabler/icons';
 import { useQueryUser } from '../hooks/useQueryUser';
+import { useRouter } from 'next/router';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface CustomHeaderProps {
   opened: boolean;
@@ -24,10 +27,18 @@ export const CustomHeader = ({ opened, setOpened, theme }: CustomHeaderProps) =>
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const { data: user } = useQueryUser() || null;
   const dark = colorScheme === 'dark';
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const logout = async () => {
+    queryClient.removeQueries(['tasks']);
+    queryClient.removeQueries(['user']);
+    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`);
+    router.push('/');
+  };
 
   return (
     <Header height={70} p="md">
-      <Container>
+      {/* <Container> */}
         <Group position="apart" style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
         <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
               <Burger
@@ -38,20 +49,25 @@ export const CustomHeader = ({ opened, setOpened, theme }: CustomHeaderProps) =>
                 mr="xl"
               />
             </MediaQuery>
-          <Title order={1}>PC Parts Picker</Title>
+          <Title order={2} ><IconDevicesPc size={24}/> PC Parts Picker</Title>
 
           <Group>
-            {user ? (
-              <>
-                <Text size="sm">UserID: {user?.id}</Text>
-                <Text size="sm">Name: {user?.name}</Text>
-                <Text size="sm">Email: {user?.email}</Text>
-              </>
-            ) : (
-              // <Text size="sm">ゲストユーザーとして閲覧中</Text>
-              ''
-            )}
-
+          <Menu width={200} offset={20}>
+              <Menu.Target>
+                <ActionIcon variant="filled" color="teal" size="lg">
+                  <IconUser size={18}/>
+                </ActionIcon>
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Label>Your Account</Menu.Label>
+                <Menu.Item >Name: {user?.name ?? "Guest"}</Menu.Item>
+                <Menu.Item >ID: {user?.id}</Menu.Item>
+                <Menu.Item>Email: {user?.email}</Menu.Item>
+                <Menu.Divider />
+                <Menu.Item icon={<IconSettings size={14} />}>Settings</Menu.Item>
+                <Menu.Item icon={<IconLogout size={14}/>} onClick={() => logout()}>Logout</Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
             <ActionIcon
               variant="filled"
               color={dark ? 'yellow' : 'blue'}
@@ -61,13 +77,9 @@ export const CustomHeader = ({ opened, setOpened, theme }: CustomHeaderProps) =>
             >
               {dark ? <IconSun size={18} /> : <IconMoon size={18} />}
             </ActionIcon>
-
-            <ActionIcon variant="filled" size="lg">
-              <IconSettings size={18} />
-            </ActionIcon>
           </Group>
         </Group>
-      </Container>
+      {/* </Container> */}
     </Header>
   );
 };

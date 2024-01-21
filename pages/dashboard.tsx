@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import axios from 'axios';
-import { LogoutIcon } from '@heroicons/react/solid';
 import { Layout } from '../components/Layout';
 import { UserInfo } from '../components/UserInfo';
-import { useQueryClient } from '@tanstack/react-query';
 import { CategoryList } from '../components/CategoryList';
 import { MyPartsList } from '../components/MyPartsList';
 import { PartType, partTypes } from '../types';
@@ -14,20 +10,12 @@ import { Container, AppShell, Navbar, Text, useMantineTheme } from '@mantine/cor
 import { CustomHeader } from '../components/CustomHeader';
 
 const Dashboard: NextPage = () => {
-  const router = useRouter();
-  const queryClient = useQueryClient();
   const [partType, setPartType] = useState<PartType>('cpu');
   const [partId, setPartId] = useState<string>('');
   // AppShellのためのステート
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
 
-  const logout = async () => {
-    queryClient.removeQueries(['tasks']);
-    queryClient.removeQueries(['user']);
-    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`);
-    router.push('/');
-  };
   return (
     <AppShell
       styles={{
@@ -50,10 +38,6 @@ const Dashboard: NextPage = () => {
       }
     >
       <Layout title="Task Board">
-        <LogoutIcon
-          className="mb-6 h-6 w-6 cursor-pointer text-blue-500"
-          onClick={logout}
-        />
         <CategoryList partType={partType} />
         <UserInfo />
 
