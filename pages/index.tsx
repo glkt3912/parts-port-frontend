@@ -8,7 +8,7 @@ import axios from 'axios';
 import { IconDatabase } from '@tabler/icons';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
 import { ExclamationCircleIcon } from '@heroicons/react/outline';
-import { Layout } from '../components/Layout';
+import { LoginLayout } from '../components/LoginLayout';
 import { useStore } from '../store';
 import {
   Anchor,
@@ -84,7 +84,7 @@ const Home: NextPage = () => {
     }
   };
   return (
-    <Layout title="Auth">
+    <LoginLayout title="Auth">
       <ShieldCheckIcon className="h-16 w-16 text-blue-500" />
       {error && (
         <Alert
@@ -157,7 +157,7 @@ const Home: NextPage = () => {
           </Button>
         </Group>
       </form>
-    </Layout>
+    </LoginLayout>
   );
 };
 

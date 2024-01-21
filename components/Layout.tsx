@@ -1,22 +1,40 @@
-import { FC, ReactNode } from 'react';
-import Head from 'next/head';
+import { useState, ReactNode } from 'react';
+import { AppShell, useMantineTheme } from '@mantine/core';
+import CustomHeader from './CustomHeader';
+import CustomNavbar from './CustomNavbar';
 
-type Props = {
-  title: string;
+interface LayoutProps {
   children: ReactNode;
-};
+}
 
-export const Layout: FC<Props> = ({ children, title = 'Nextjs' }) => {
+const Layout = ({ children }: LayoutProps) => {
+  // AppShellのためのステート
+  const [opened, setOpened] = useState(false);
+  const theme = useMantineTheme();
   return (
-    <>
-      <div className="flex min-h-screen flex-col items-center justify-center">
-        <Head>
-          <title>{title}</title>
-        </Head>
-        <main className="flex w-screen flex-1 flex-col items-center justify-center">
-          {children}
-        </main>
-      </div>
-    </>
+    <AppShell
+      styles={{
+        main: {
+          background:
+            theme.colorScheme === 'dark'
+              ? theme.colors.dark[8]
+              : theme.colors.gray[0],
+        },
+      }}
+      padding="md"
+      navbarOffsetBreakpoint="sm"
+      asideOffsetBreakpoint="sm"
+      fixed
+      navbar={
+        <CustomNavbar opened={opened} />
+      }
+      header={
+        <CustomHeader opened={opened} setOpened={setOpened} theme={theme} />
+      }
+    >
+      {children}
+    </AppShell>
   );
 };
+
+export default Layout;
