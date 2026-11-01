@@ -1,3 +1,8 @@
+> **[Archived]** このリポジトリは 2026-11-01 に repo-health により自動アーカイブされました。
+> 最終更新から 12 ヶ月以上経過しているため、読み取り専用になっています。
+
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
